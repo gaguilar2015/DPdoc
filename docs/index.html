@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gian Aguilar">
+
+<title>Census Data Processing</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="DP_files/libs/clipboard/clipboard.min.js"></script>
+<script src="DP_files/libs/quarto-html/quarto.js"></script>
+<script src="DP_files/libs/quarto-html/popper.min.js"></script>
+<script src="DP_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="DP_files/libs/quarto-html/anchor.min.js"></script>
+<link href="DP_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="DP_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="DP_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="DP_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="DP_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-processing-for-the-belize-population-and-housing-census" id="toc-data-processing-for-the-belize-population-and-housing-census" class="nav-link active" data-scroll-target="#data-processing-for-the-belize-population-and-housing-census">Data Processing for the Belize Population and Housing Census</a>
+  <ul class="collapse">
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">1. Data collection</a></li>
+  <li><a href="#use-of-long-formshort-form" id="toc-use-of-long-formshort-form" class="nav-link" data-scroll-target="#use-of-long-formshort-form">2. Use of long form/short form</a></li>
+  <li><a href="#census-weighting" id="toc-census-weighting" class="nav-link" data-scroll-target="#census-weighting">3. Census Weighting</a></li>
+  <li><a href="#census-data-processing" id="toc-census-data-processing" class="nav-link" data-scroll-target="#census-data-processing">4. Census Data Processing</a></li>
+  <li><a href="#issues-encountered-with-raw-census-data" id="toc-issues-encountered-with-raw-census-data" class="nav-link" data-scroll-target="#issues-encountered-with-raw-census-data">5. Issues encountered with raw census data</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Census Data Processing</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gian Aguilar </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="data-processing-for-the-belize-population-and-housing-census" class="level1 page-columns page-full">
+<h1>Data Processing for the Belize Population and Housing Census</h1>
+<section id="data-collection" class="level3">
+<h3 class="anchored" data-anchor-id="data-collection">1. Data collection</h3>
+<section id="data-collection-period" class="level4">
+<h4 class="anchored" data-anchor-id="data-collection-period">1.1 Data Collection Period</h4>
+<p>The data collection period lasted from May 12, 2022 to January 31, 2023. However, most regions finished between August and November.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Region</th>
+<th>Number of Teams</th>
+<th>Finish Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Corozal</td>
+<td>17</td>
+<td>September</td>
+</tr>
+<tr class="even">
+<td>Orange Walk</td>
+<td>17</td>
+<td>September</td>
+</tr>
+<tr class="odd">
+<td>Belize North</td>
+<td>16</td>
+<td>January</td>
+</tr>
+<tr class="even">
+<td>Belize South</td>
+<td>19</td>
+<td>January</td>
+</tr>
+<tr class="odd">
+<td>San Pedro</td>
+<td>7</td>
+<td>October</td>
+</tr>
+<tr class="even">
+<td>Cayo</td>
+<td>16</td>
+<td>October</td>
+</tr>
+<tr class="odd">
+<td>Belmopan</td>
+<td>17</td>
+<td>November</td>
+</tr>
+<tr class="even">
+<td>Stann Creek</td>
+<td>16</td>
+<td>November</td>
+</tr>
+<tr class="odd">
+<td>Toledo</td>
+<td>12</td>
+<td>August</td>
+</tr>
+</tbody>
+</table>
+<p>However, note that there was significant staff attrition and the actual team number and sizes significantly decreased during the fieldwork period.</p>
+</section>
+<section id="method-of-data-collection" class="level4">
+<h4 class="anchored" data-anchor-id="method-of-data-collection">1.2 Method of Data Collection</h4>
+<p>Data Collection was performed using CAPI.</p>
+<ol type="1">
+<li>There were two main Collection applications.
+<ol type="a">
+<li>Survey Solutions (World Bank)
+<ul>
+<li>Used for administering the Listing and Household questionnaires.</li>
+<li>Had built-in validations with error/warning messages for unexpected inputs.</li>
+<li>Allowed for offline collection. Synchronization was performed at least daily.</li>
+</ul></li>
+<li>SIB Collect
+<ul>
+<li>Geo-spatial capture application built by SIB.</li>
+<li>Used for general navigation and identification of enumeration areas, buildings and dwellings.</li>
+<li>Used for geo-spatial capture of new buildings (drawing the polygon) and to update features of existing buildings.</li>
+</ul></li>
+</ol></li>
+<li>Enumerators were equipped with tablets, configured with all necessary applications.</li>
+<li>Additional software and tools, such as the <strong>Census Dashboard</strong>, was available to field supervisors, regional and HQ staff which allowed monitoring and management of Census data collection.</li>
+</ol>
+<p>The Census software environment is illustrated below. The diagram shows how the Census Data flowed through collection, synchronization, transformation, storage, and analytics/reporting.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="edit_images/census_tech.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Fig 1. Census data collection and processing environment.</figcaption>
+</figure>
+</div>
+</section>
+<section id="data-collection-personnel-structure" class="level4">
+<h4 class="anchored" data-anchor-id="data-collection-personnel-structure">1.3 Data Collection personnel structure</h4>
+<p>The Census personnel structure consisted of:</p>
+<ol type="1">
+<li>Headquarters
+<ul>
+<li>Consisting of core management and support staff (HR, Finance, Admin, IT, GIS).</li>
+<li>Editor/Coders were also housed at headquarters.</li>
+</ul></li>
+<li>Nine regional offices
+<ul>
+<li>Consisting of a Regional Census Coordinator (RCC), Assistant Coordinator (ARCC), IT Technicians, and Administrative Assistant (AA).</li>
+</ul></li>
+<li>170 total teams
+<ul>
+<li>Each team consisted of 1 field supervisor and 3-4 interviewers (on average).</li>
+<li>The number of teams per region varied according to the size of the region.</li>
+</ul></li>
+</ol>
+<p>A diagrammatic representation of the personnel structure of the census is illustrated below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="edit_images/cstruct.png.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption class="figure-caption">Fig 2. Census simplified personnel structure.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="use-of-long-formshort-form" class="level3">
+<h3 class="anchored" data-anchor-id="use-of-long-formshort-form">2. Use of long form/short form</h3>
+<p>Due to delays in completing the data collection in the Belize district regions, the decision was made to create a shortened version of the Census questionnaire, to accelerate collection and ensure complete coverage of the country.</p>
+<ul>
+<li><p>The shortened version of the questionnaire was known as the <em>short-form version</em></p></li>
+<li><p>The full, original version of the questionnaires was known as the <em>long-form version</em>.</p></li>
+</ul>
+<p>Here is a summary of the implementation of the short-form version.</p>
+<ol type="1">
+<li>Households in around 150 different EDs in the Belize district received the short-form questionnaires.</li>
+<li>The long-form/short-form split was 25%/%75. That is, a household within these 140 EDs had 25% chance of receiving a long-form questionnaire, and 75% chance of receiving the short-form.</li>
+<li>Given that household assignments were generated automatedly through software, the 25-75 split was applied programmatically.
+<ul>
+<li>To be precise, at the moment of generating a household questionnaire for a household, a uniform distribution was sampled to produce a number between 0 and 1. If this number was &lt;= 0.25, a long-form questionnaire was generated. Otherwise, a short-form questionnaire was generated.</li>
+<li>This automation was enabled by the Census Dashboard, will allowed the creation of assignments for a given ED at the push of a button.</li>
+</ul></li>
+</ol>
+<p>The mixture of long-form and short-form questionnaires necessitated an extra level of weighting, which will be discussed later on.</p>
+</section>
+<section id="census-weighting" class="level3">
+<h3 class="anchored" data-anchor-id="census-weighting">3. Census Weighting</h3>
+<p>Weighting for the Census dataset was performed meticulously and with guidance from Dave Dolson from StatCan.</p>
+<p><strong>Weighting was performed at the stratum level.</strong></p>
+<p><a href="https://siborg-my.sharepoint.com/:w:/g/personal/gaguilar_mail_sib_org_bz/EUd7nnaDKOBEhRl-v6wI4oMBV0bejolmSnxBjd5cF_DMjA?e=U3nP2y" target="_blank">For full weighting documentation, see here</a>.</p>
+<p>In summary, the following weights were calculated:</p>
+<ol type="1">
+<li>Non-response adjustment at the household level.</li>
+<li>Non-response adjustment at the dwelling level.</li>
+<li>Long-form/Short-form weighting.</li>
+<li>Calibration of longform/shortform weights.</li>
+</ol>
+<p>The different weights, their calculation and their use are described below.</p>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Weight</th>
+<th>Description</th>
+<th>Calculation</th>
+<th>Used in analysis?</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dw_response_wt</td>
+<td>Non-response adjustment at the <strong>dwelling</strong> level</td>
+<td>total_dwellings / respondent_dwellings</td>
+<td>No</td>
+<td>As an intermediate input to calculate hh_wt</td>
+</tr>
+<tr class="even">
+<td>hh_response_wt</td>
+<td>Non-response adjustment at the <strong>household</strong> level</td>
+<td>total_hhs / respondent_hhs</td>
+<td>No</td>
+<td>As an intermediate input to calculate hh_wt</td>
+</tr>
+<tr class="odd">
+<td>hh_wt</td>
+<td><strong>combined</strong> (the product of) dwelling and household response weights</td>
+<td>dw_response_wt * hh_response_wt</td>
+<td>Yes</td>
+<td>To be used with variables/items that appear in BOTH long-form and short-form questionnaires. Example: age, sex, country of birth.</td>
+</tr>
+<tr class="even">
+<td>long_wt</td>
+<td>weights for longform questionnairs in areas that underwent long-form/short-form sampling</td>
+<td>total_hhs/longform_hhs</td>
+<td>No</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>cal_long_wt</td>
+<td>calibrated long_wt using hh_size as the calibrator.</td>
+<td></td>
+<td>Yes</td>
+<td>Used with variables/items that ONLY appear in the longform questionnaire. Example: DH1 (disability)</td>
+</tr>
+</tbody>
+</table>
+<p>To see an example of the main weights in action and how they should be used, consider the records below, sampled from the individual census dataset. Notice the following features:</p>
+<ol type="1">
+<li>HL1 appears in all questionnaires (both longform and shortform)</li>
+<li>DH1 only appears in longform questionnaires and is NA in shortforms.</li>
+<li>The calibrated longform weight (cal_lng_wt) drops weights for shortform questionnaires and adds it to longform questionnaires.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="dwfbggwkxr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dwfbggwkxr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#dwfbggwkxr thead, #dwfbggwkxr tbody, #dwfbggwkxr tfoot, #dwfbggwkxr tr, #dwfbggwkxr td, #dwfbggwkxr th {
+  border-style: none;
+}
+
+#dwfbggwkxr p {
+  margin: 0;
+  padding: 0;
+}
+
+#dwfbggwkxr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#dwfbggwkxr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#dwfbggwkxr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#dwfbggwkxr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#dwfbggwkxr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#dwfbggwkxr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#dwfbggwkxr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#dwfbggwkxr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#dwfbggwkxr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#dwfbggwkxr .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#dwfbggwkxr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dwfbggwkxr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#dwfbggwkxr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#dwfbggwkxr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#dwfbggwkxr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dwfbggwkxr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#dwfbggwkxr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#dwfbggwkxr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#dwfbggwkxr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dwfbggwkxr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#dwfbggwkxr .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dwfbggwkxr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#dwfbggwkxr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dwfbggwkxr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dwfbggwkxr .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dwfbggwkxr .gt_left {
+  text-align: left;
+}
+
+#dwfbggwkxr .gt_center {
+  text-align: center;
+}
+
+#dwfbggwkxr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#dwfbggwkxr .gt_font_normal {
+  font-weight: normal;
+}
+
+#dwfbggwkxr .gt_font_bold {
+  font-weight: bold;
+}
+
+#dwfbggwkxr .gt_font_italic {
+  font-style: italic;
+}
+
+#dwfbggwkxr .gt_super {
+  font-size: 65%;
+}
+
+#dwfbggwkxr .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#dwfbggwkxr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#dwfbggwkxr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#dwfbggwkxr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#dwfbggwkxr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#dwfbggwkxr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#dwfbggwkxr .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Region">Region</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Interview key (identifier in XX-XX-XX-XX format)">Interview key (identifier in XX-XX-XX-XX format)</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="HL1.1: Relationship to the head of the household.">HL1.1: Relationship to the head of the household.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="DH4.1: Difficulty seeing even if wearing glasses">DH4.1: Difficulty seeing even if wearing glasses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="hh_wt">hh_wt</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="cal_lng_wt">cal_lng_wt</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="qtype">qtype</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="region" class="gt_row gt_center">4</td>
+<td headers="interview__key" class="gt_row gt_right">33-30-70-59</td>
+<td headers="HL1" class="gt_row gt_center"> 1</td>
+<td headers="DH1" class="gt_row gt_center">NA</td>
+<td headers="hh_wt" class="gt_row gt_right">1.708523</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">0.000000</td>
+<td headers="qtype" class="gt_row gt_left">shortform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">4</td>
+<td headers="interview__key" class="gt_row gt_right">15-70-83-62</td>
+<td headers="HL1" class="gt_row gt_center"> 3</td>
+<td headers="DH1" class="gt_row gt_center">NA</td>
+<td headers="hh_wt" class="gt_row gt_right">1.708523</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">0.000000</td>
+<td headers="qtype" class="gt_row gt_left">shortform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">4</td>
+<td headers="interview__key" class="gt_row gt_right">68-85-31-59</td>
+<td headers="HL1" class="gt_row gt_center"> 2</td>
+<td headers="DH1" class="gt_row gt_center"> 1</td>
+<td headers="hh_wt" class="gt_row gt_right">1.616160</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">7.539617</td>
+<td headers="qtype" class="gt_row gt_left">longform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">4</td>
+<td headers="interview__key" class="gt_row gt_right">57-09-65-86</td>
+<td headers="HL1" class="gt_row gt_center"> 2</td>
+<td headers="DH1" class="gt_row gt_center"> 1</td>
+<td headers="hh_wt" class="gt_row gt_right">1.616160</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">6.496592</td>
+<td headers="qtype" class="gt_row gt_left">longform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">4</td>
+<td headers="interview__key" class="gt_row gt_right">54-40-55-36</td>
+<td headers="HL1" class="gt_row gt_center"> 3</td>
+<td headers="DH1" class="gt_row gt_center">NA</td>
+<td headers="hh_wt" class="gt_row gt_right">1.708523</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">0.000000</td>
+<td headers="qtype" class="gt_row gt_left">shortform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">4</td>
+<td headers="interview__key" class="gt_row gt_right">01-25-02-47</td>
+<td headers="HL1" class="gt_row gt_center"> 2</td>
+<td headers="DH1" class="gt_row gt_center">NA</td>
+<td headers="hh_wt" class="gt_row gt_right">1.708523</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">0.000000</td>
+<td headers="qtype" class="gt_row gt_left">shortform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">3</td>
+<td headers="interview__key" class="gt_row gt_right">56-88-09-96</td>
+<td headers="HL1" class="gt_row gt_center">11</td>
+<td headers="DH1" class="gt_row gt_center"> 1</td>
+<td headers="hh_wt" class="gt_row gt_right">1.616160</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">5.087733</td>
+<td headers="qtype" class="gt_row gt_left">longform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">3</td>
+<td headers="interview__key" class="gt_row gt_right">49-33-55-79</td>
+<td headers="HL1" class="gt_row gt_center"> 7</td>
+<td headers="DH1" class="gt_row gt_center">NA</td>
+<td headers="hh_wt" class="gt_row gt_right">1.708523</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">0.000000</td>
+<td headers="qtype" class="gt_row gt_left">shortform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">3</td>
+<td headers="interview__key" class="gt_row gt_right">59-42-44-67</td>
+<td headers="HL1" class="gt_row gt_center"> 1</td>
+<td headers="DH1" class="gt_row gt_center">NA</td>
+<td headers="hh_wt" class="gt_row gt_right">1.708523</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">0.000000</td>
+<td headers="qtype" class="gt_row gt_left">shortform</td></tr>
+    <tr><td headers="region" class="gt_row gt_center">4</td>
+<td headers="interview__key" class="gt_row gt_right">20-46-06-94</td>
+<td headers="HL1" class="gt_row gt_center"> 8</td>
+<td headers="DH1" class="gt_row gt_center">NA</td>
+<td headers="hh_wt" class="gt_row gt_right">1.708523</td>
+<td headers="cal_lng_wt" class="gt_row gt_right">0.000000</td>
+<td headers="qtype" class="gt_row gt_left">shortform</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<p>Therefore, we note that the proper usage of the two main weights is as follows:</p>
+<ol type="1">
+<li><strong><em>hh_wt</em></strong> should be used for ALL variables that appear in all (both shortform and longform) quetionnaires (<em>such as HL1</em>). Using cal_lng_wt for these variables would cause shortform records (and their usable data) to be ignored and their weight to be given to the longforms.</li>
+<li><strong><em>cal_lng_wt</em></strong> should be used for ALL variables that ONLY appear in the shortform (<em>such as DH1</em>). Using hh_wt for these variables would keep the weights for shortforms where these variables are not present and would inflate the NA values.</li>
+</ol>
+</section>
+<section id="census-data-processing" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="census-data-processing">4. Census Data Processing</h3>
+<p>Data processing for the Belize Census was a meticulous and expansive operation that involved a wide variety of human personnel, software tools, and processes and methodologies.The main items involved in data processing and editing are outlined below.</p>
+<ol type="1">
+<li>Pre-processing
+<ul>
+<li>Preparation of Maps and Master Building Files (used for creating Listing questionnaires).</li>
+<li>Design and creation of CAPI questionnaire, including validations and skip patterns.</li>
+<li>Creation of R scripts to automated the downloading, processing and preparation of Census data for monitoring and supervisory purposes on an hourly basis.</li>
+</ul></li>
+<li>During-Collection Processing
+<ul>
+<li>Editing and coding.
+<ul>
+<li>Editor coders were trained to review questionnaires for quality and consistency.</li>
+<li>These editors also entered standard classification codes where necessary.</li>
+</ul></li>
+<li>Spatial and Listing processing
+<ul>
+<li>IT technicians and data processors were trained to review geospatial and Listing data to identify and fix inconsistencies during collection,</li>
+<li>Software was built to aid in identifying inconsistencies and addressing them.</li>
+</ul></li>
+</ul></li>
+<li>Post-processing
+<ul>
+<li>At the end of collection, data was aggregated, merged, restructured, cleaned and processed.</li>
+<li>Data editing rules were created based on the Census Editing Manual and local context and needs.</li>
+</ul></li>
+</ol>
+<p><a href="https://siborg.sharepoint.com/:w:/s/DataProcessing/EZTswPLpaIZGiBCfvNH7EpQBiVTga4vj4-ka82XyROhHfA?e=ncA70v" target="_blank">Extended data processing documentation can be found here.</a></p>
+<p>An flowchart representation of data processing is below.</p>
+<div class="column-page">
+<p><img src="edit_images/dp1.png" class="img-fluid" data-fig-align="center"> <img src="edit_images/dp2.png" class="img-fluid" data-fig-align="center"></p>
+</div>
+</section>
+<section id="issues-encountered-with-raw-census-data" class="level3">
+<h3 class="anchored" data-anchor-id="issues-encountered-with-raw-census-data">5. Issues encountered with raw census data</h3>
+<p>The issues revolving Census data were mostly encountered during data collection. However, two of these issues had implications on data processing.</p>
+<section id="missing-questionnaires-blank-questionnaire-or-questionnaires-with-missing-key-data" class="level4">
+<h4 class="anchored" data-anchor-id="missing-questionnaires-blank-questionnaire-or-questionnaires-with-missing-key-data">5.1 Missing questionnaires, blank questionnaire, or questionnaires with missing key data</h4>
+<p><strong>Status: resolved</strong></p>
+<p>At the end of the day, to have good Census estimates, it is crucial to have a <strong>complete</strong> count of buildings, dwellings and households. Non-response adjustment can be applied properly only if the true population of dwellings, households and individuals is known.</p>
+<p>There were various scenarios, arising during data collection, that originally presented obstacles to this.</p>
+<ol type="1">
+<li>Missing/Unsubmitted Household Questionnaires.
+<ul>
+<li>Household questionnaires were created for dwellings identified during Listing, but somequestionnaires were never returned.</li>
+<li>Thus, there is no status information about the dwelling occupancy or the household.</li>
+</ul></li>
+<li>Missing/Unsubmitted Listing Questionnaires
+<ul>
+<li>Listing questionnaires were created for every building in the country, based on the spatial database, but some were never returned.</li>
+<li>Thus, there is no status information about
+<ul>
+<li>If the structure is a building to begin with.</li>
+<li>The building classification and occupancy status.</li>
+<li>The units within a building, including potential dwellings.</li>
+</ul></li>
+</ul></li>
+<li>Blank questionnaires or questionnaires with missing data.
+<ul>
+<li>Listing or Household questionnaires were returned by enumerators, but were blank, or had missing key information (building and unit classifications, for example).</li>
+</ul></li>
+</ol>
+<p>The above situations lead to an incomplete picture on the actual number of buildings, dwelling units, and households in the country. To fix this, the SIB team considered implementing either a weighting or an imputation strategy. Following advice from StatCan, a careful imputation strategy was designed to impute the missing information, using the observed distributions of the target variables. <a href="https://siborg-my.sharepoint.com/:w:/g/personal/gaguilar_mail_sib_org_bz/EfBUA0iZmXVDmt6kB5Na1BkBnUgybmbm7SSYXRxhCOmgXw?e=CfmnZc" target="_blank">The documentation can be found here</a>.</p>
+</section>
+<section id="discrepancies-of-dwelling-unit-identification-between-listing-and-enumeration." class="level4">
+<h4 class="anchored" data-anchor-id="discrepancies-of-dwelling-unit-identification-between-listing-and-enumeration.">5.2 Discrepancies of Dwelling-unit identification between Listing and Enumeration.</h4>
+<p><strong>Status: resolved.</strong></p>
+<ol type="1">
+<li>During Listing, dwellings were identified mainly through observation (contact with a household member was not required).</li>
+<li>During Enumeration, a high number of units that were identified as “dwellings” during Listing were now being labeled as “not a dwelling”.</li>
+<li>However, the number of “not a dwelling” was suspiciously high, so a field verification exercise was performed on a sample of these “not a dwelling” units.</li>
+<li>This resulted in somewhat complex weighting and imputation process, which was guided by StatCan.</li>
+</ol>
+<p>This item required immediate attention, given that there were 22,000 records that were ORIGINALLY recorded as “dwelling” during the Listing, but subsequently labeled as “Not a Dwelling” during enumeration, or the variable was missing (blank questionnaire).</p>
+<p>The documentation regarding this process appears below:</p>
+<ol type="1">
+<li><p><a href="explanationofsamplingstrategyupdated20230402.docx" target="_blank">Statcan Strategy Document</a> by David Dolson, StatCan.</p></li>
+<li><p><a href="https://siborg-my.sharepoint.com/:w:/g/personal/gaguilar_mail_sib_org_bz/EWfin061lJhJhgbSlHKauAEBhmtFEYC1kHiWBVp_ClmrpQ?e=1dYuxJ" target="_blank">Implementation Documentation</a>, by Christian Orellana SIB.</p></li>
+<li><p><a href="https://siborg-my.sharepoint.com/:x:/g/personal/gaguilar_mail_sib_org_bz/EYaBPMI4R_NAnHS_604Q6jsBltS8pfOYz7bAZl9lALsiMw?e=gc87Ft" target="_blank">Results of verification</a>, raw summaries.</p></li>
+<li><p><a href="https://siborg-my.sharepoint.com/:x:/g/personal/gaguilar_mail_sib_org_bz/EZWP9p3j8jtJlICNFMOGl6QBT4jHLjjyZ-MrUPBI0fGtuA?e=kDPnHC" target="_blank">Verification survey weighted dataset</a></p></li>
+</ol>
+</section>
+<section id="census-weighting-and-short-formlong-form-methodology-leading-to-discrepancies-in-the-total-counts-of-individuals." class="level4">
+<h4 class="anchored" data-anchor-id="census-weighting-and-short-formlong-form-methodology-leading-to-discrepancies-in-the-total-counts-of-individuals.">5.3 Census weighting, and short-form/long-form methodology leading to discrepancies in the total counts of individuals.</h4>
+<p><strong>Status: in-progress.</strong></p>
+<p>As a result of longform weights, and particularly because weighting is done only at the household level, there was a curious side effect where <em>the <strong>count</strong> of total individuals in when analyzing longform-only variables (using cal_lng_wt) is <strong>different</strong></em> <em>than when analyzing universal variables (using hh_wt).</em></p>
+<p>This issue was caused for the below reasons</p>
+<ol type="a">
+<li>The subset of households that received the long-form and short-form questionnaires were not <em>exactly</em> the same in terms of composition (household size, members and sex).</li>
+<li>Shortform households are dropped when using the longform weights, losing precision on the exact household size and composition, as their weight is shared among all longform questionnaires in the household’s weighting stratum.</li>
+<li>These count for individuals for households is now slightly different when using hh_wt (when analysing universal variables), than when using cal_lng_wt (when analyzing longform-only variables).</li>
+</ol>
+<p>The longform weightes were subsequently <strong>calibrated</strong> using household_size as the calibrating variable. This improved the weights but because we cannot account for every single household size, broken down by male/female, then there remain still minor discrepancies.</p>
+<p>The team has considered different alternatives to fix this issue:</p>
+<ul>
+<li><strong>Deriving individual weights</strong>, could solve the issue because each individual could be receive an adjusted weight to always equal the total number of individuals. However, <em>deriving individual weights is undesirable</em> because that would mean the addition of another two weights to the dataset (individual regular weights and individual long-form weights), leading to a total of <strong><em>four different weights</em></strong> that analysts and data users would need to use when working with the Census dataset.</li>
+<li>A <strong>imputation strategy</strong> could be created to impute the missing variables in short-form questionnaires. However, the team believes this task to be too lengthy and complex at this point in time, and there are also very important consequences to consider.</li>
+</ul>
+<p>The data processing and analysis team are currently researching other alternatives to finalize a fix for this issue.</p>
+<p><strong>THIS ISSUE ONLY AFFECTS THE BELIZE NORTH AND BELIZE SOUTH REGIONS, WHICH IS THE ONLY PLACE WHERE THE LONGFORM WEIGHTS ARE USED. THIS ISSUE ALSO ONLY AFFECTS THE ANALYSIS OF LONGFORM-ONLY VARIABLES. <em>AFTER CALIBRATION, THE GROSS COUNT DIFFERENCE IS 35.</em></strong></p>
+</section>
+<section id="issues-in-household-editing" class="level4">
+<h4 class="anchored" data-anchor-id="issues-in-household-editing">5.4 Issues in Household Editing</h4>
+<p>Editing rules for harmonizing and preparing the Census datasets for analysis were created by the data processing team, using the <a href="https://unstats.un.org/unsd/publication/SeriesF/seriesf_82rev1e.pdf" target="_blank">Handbook on Population and Housing Census Editing</a> as a main guide.</p>
+<p>The editing rules and documentation derived <a href="https://siborg-my.sharepoint.com/:x:/g/personal/gaguilar_mail_sib_org_bz/Edk6vbyiopBPm4GeMCC5vvwBnoJ90EU48dT7qhbtOEhVVw?e=8vMrxJ" target="_blank">can be found here</a>.</p>
+<p>The remaining “issues” are simply editing items where the recommended action needs to be confirmed, using research or expert recommendation. Some of these pending edits are below:</p>
+<ol type="1">
+<li>In 0.3% of cases, households reported wall materials that cannot support the reported roof material. For example, sticks or makeshift walls, and concrete roof.
+<ul>
+<li>Recommendations include:
+<ul>
+<li>accept as is, because there might exist concrete columns despite weak wall material.</li>
+<li>Accept wall material as a correct value, and implicitly take the roof material as an incorrect/mistaken value and change the response to Not Reported.</li>
+</ul></li>
+</ul></li>
+<li>In 6.6% of Urban households, the main water source was reported as “Private, piped into dwelling”. However, to the team’s knowledge, private water piping is not allowed in Urban areas. Pending confirmation with external sources.</li>
+<li>In the Disability and Health module, the team needs to confirm appropriate age ranges for which the response “Not applicable because of age” is allowed.</li>
+<li>In the education module, 1,000 primary school students reported attending school part time. Research is being done to confirm if any primary school locally does part-time schooling.</li>
+</ol>
+<p>Statisticians and analysts are currently working on the best course of action for the above edit items but expert recommendation is welcome.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
