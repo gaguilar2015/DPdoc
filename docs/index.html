@@ -209,13 +209,20 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="use-of-long-formshort-form">2. Use of long form/short form</h3>
 <p>Due to delays in completing the data collection in the Belize district regions, the decision was made to create a shortened version of the Census questionnaire, to accelerate collection and ensure complete coverage of the country.</p>
 <ul>
-<li><p>The shortened version of the questionnaire was known as the <em>short-form version</em></p></li>
+<li><p>The shortened version of the questionnaire was known as the <em>short-form version</em>. <a href="https://siborg-my.sharepoint.com/:w:/g/personal/gaguilar_mail_sib_org_bz/EeStPXoPZstMjRNimaFdy8MBMh8soyHzrMpGZvRYVda6NA?e=xNhqoZ">See the contents of the short form here</a>.</p></li>
 <li><p>The full, original version of the questionnaires was known as the <em>long-form version</em>.</p></li>
 </ul>
 <p>Here is a summary of the implementation of the short-form version.</p>
 <ol type="1">
-<li>Households in around 150 different EDs in the Belize district received the short-form questionnaires.</li>
-<li>The long-form/short-form split was 25%/%75. That is, a household within these 140 EDs had 25% chance of receiving a long-form questionnaire, and 75% chance of receiving the short-form.</li>
+<li>Households in 147 different EDs in the Belize district received the short-form questionnaires.</li>
+<li>The long-form/short-form split was 25%/%75. That is, a household within these 147 EDs had 25% chance of receiving a long-form questionnaire, and 75% chance of receiving the short-form.
+<ul>
+<li>EDs where less than 10% of households had been completed were selected for short-form sampling.</li>
+<li>However, in practice, several EDs at different levels of completion still underwent short-form sampling for the remaining households in the ED.</li>
+</ul></li>
+</ol>
+<!-- -->
+<ol start="3" type="1">
 <li>Given that household assignments were generated automatedly through software, the 25-75 split was applied programmatically.
 <ul>
 <li>To be precise, at the moment of generating a household questionnaire for a household, a uniform distribution was sampled to produce a number between 0 and 1. If this number was &lt;= 0.25, a long-form questionnaire was generated. Otherwise, a short-form questionnaire was generated.</li>
@@ -910,7 +917,8 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>During Listing, dwellings were identified mainly through observation (contact with a household member was not required).</li>
 <li>During Enumeration, a high number of units that were identified as “dwellings” during Listing were now being labeled as “not a dwelling”.</li>
-<li>However, the number of “not a dwelling” was suspiciously high, so a field verification exercise was performed on a sample of these “not a dwelling” units.</li>
+<li>However, the number of “not a dwelling” was suspiciously high.</li>
+<li>Accordingly, a field verification exercise was designed and performed on a sample of these “not a dwelling” units. The results were used to adjust the dwelling estimates.</li>
 <li>This resulted in somewhat complex weighting and imputation process, which was guided by StatCan.</li>
 </ol>
 <p>This item required immediate attention, given that there were 22,000 records that were ORIGINALLY recorded as “dwelling” during the Listing, but subsequently labeled as “Not a Dwelling” during enumeration, or the variable was missing (blank questionnaire).</p>
